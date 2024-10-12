@@ -17,7 +17,7 @@ def get_user_from_db(*,username:str, db: Session):
 
 def create_user_in_db(data: USerCreateSchema,db:Session):
     hashed_password=bcrypt.hashpw(data.password.encode("utf-8"),bcrypt.gensalt())
-    new_user=User(username=data.username,password=hashed_password.decode("utf-8"))
+    new_user=User(username=data.username,password=hashed_password.decode("utf-8"),height=data.height)
     user=db.query(User).filter_by(username=new_user.username).first()
     if user:
         raise UserIsExists()

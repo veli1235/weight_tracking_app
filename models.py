@@ -1,4 +1,4 @@
-from sqlalchemy import Column,Integer,String,Date,Float
+from sqlalchemy import Column,Integer,String,Date
 from db import Base,engine
 
 
@@ -7,7 +7,7 @@ class User(Base):
     id = Column(Integer,primary_key=True)
     username = Column(String,unique=True)
     password = Column(String)
-    height = Column(Float)
+    height = Column(String)
 
 class Weight(Base):
     __tablename__ = "weight_entries"

@@ -5,6 +5,6 @@ class USerCreateSchema(BaseModel):
 
     password:str
 
-    height:float
+    height:str
     class Config:
         extra = "forbid"
