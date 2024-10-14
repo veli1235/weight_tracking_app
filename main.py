@@ -34,8 +34,4 @@ def change_weight(username: str, db: Session = Depends(get_db)):
 @app.get("/weight")
 def calculate_bmi(username: str, db: Session = Depends(get_db)):
     message = calculate_bmi_for_last_weight(username = username, db = db)
-<<<<<<< HEAD
     return message
-=======
-    return message
->>>>>>> 7ae7304d0a6e38e8e9ee73b3b18d8e640423c4be
