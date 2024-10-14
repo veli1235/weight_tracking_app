@@ -6,6 +6,7 @@ from exception import *
 import  psycopg2 
 from settings import DATABASE_URL
 import bcrypt
+from datetime import datetime
 
 
 def get_user_from_db(*,username:str, db: Session):
@@ -32,7 +33,7 @@ def create_user_in_db(data: USerCreateSchema,db:Session):
 
 
 def create_weight_in_db(*,username:str,data : UserCreateWeight, db : Session):
-    new_weight = Weight(username = username,weight = data.weight,datetime = data.datetime)
+    new_weight = Weight(username = username,weight = data.weight,datetime = datetime.now())
     user = db.query(User).filter(User.username == new_weight.username).first()
     if  not user:
         raise UserNotFound()

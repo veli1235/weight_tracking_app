@@ -12,6 +12,6 @@ class USerCreateSchema(BaseModel):
 
 class UserCreateWeight(BaseModel):
     weight : float
-    datetime : date
+    
     class Config:
         extra = "forbid"
