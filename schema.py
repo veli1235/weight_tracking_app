@@ -1,10 +1,17 @@
 from pydantic import BaseModel
+from datetime import date
 
 class USerCreateSchema(BaseModel):
     username :str
 
     password:str
 
-    height:str
+    height:float
+    class Config:
+        extra = "forbid"
+
+class UserCreateWeight(BaseModel):
+    weight : float
+    datetime : date
     class Config:
         extra = "forbid"
