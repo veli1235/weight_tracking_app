@@ -1,3 +1,4 @@
+
 from sqlalchemy.orm import Session
 from schema import *
 from models import User, Weight
@@ -32,15 +33,29 @@ def create_user_in_db(data: USerCreateSchema,db:Session):
     return {"msg":"new user is created"}
 
 
-def create_weight_in_db(*,username:str,data : UserCreateWeight, db : Session):
-    new_weight = Weight(username = username,weight = data.weight,datetime = datetime.now())
-    user = db.query(User).filter(User.username == new_weight.username).first()
-    if  not user:
+def create_weight_in_db(*,username:str, data: UserCreateWeight, db : Session):
+    new_weight = Weight(username=username,weight=data.weight,datetime=data.datetime)
+    user=db.query(User).filter(User.username == new_weight.username).first()
+    if not user:
         raise UserNotFound()
-    db.add(new_weight)
-    db.commit()
-    db.refresh(new_weight)
-    return {"msg":"new weight is added"}
+    lst = []
+    lst1 = []
+    weights = db.query(Weight).filter_by(username=Weight.username,weight=Weight.weight).all()    
+    datetimes = db.query(Weight).filter(username == user.username).filter(datetime == data.datetime).all()
+    lst1.append(datetimes)
+    lst.append(weights)
+    if len(lst[0]) == 0 :
+        db.add(new_weight)
+        db.commit()
+        db.refresh(new_weight)
+        return lst
+    else:
+        db.query(Weight).filter_by(username = username,datetime = data.datetime).update({"weight":new_weight.weight})
+        db.commit()
+        return {"msg":"weight updated"}
+    
+        
+    
 
 def get_weight_change_from_db(*,username:str, db: Session):
     user = db.query(Weight).filter(Weight.username==username).first()
