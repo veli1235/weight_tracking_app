@@ -49,10 +49,10 @@ def get_weight_change_from_db(*,username:str, db: Session):
     weights = db.query(Weight).filter_by(username=user.username,weight=Weight.weight).all()
     lst.append(weights)
     last_entry = lst[0][-1]
-    if len(lst[0])==1:
-        first_entry = 0
-    else:
+    if len(lst[0])!=1:
         first_entry = lst[0][0].weight
+    else:
+        raise HTTPException(status_code=404,detail="User entered only one weight")
     return {"difference":abs(last_entry.weight-first_entry)}
 
 
