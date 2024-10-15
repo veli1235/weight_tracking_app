@@ -11,7 +11,6 @@ class USerCreateSchema(BaseModel):
         extra = "forbid"
 
 class UserCreateWeight(BaseModel):
-    weight : float
-    
+    username : str
     class Config:
         extra = "forbid"
