@@ -71,6 +71,9 @@ def calculate_bmi_for_last_weight(*,username:str, db: Session):
     user = db.query(User).filter(User.username==username).first()
     if not user:
         raise UserNotFound()
+    weight = db.query(Weight).filter(Weight.username == username).first()
+    if not weight:
+        raise WeightNotFound() 
     weights = db.query(Weight).filter_by(username=user.username,weight=Weight.weight).order_by(Weight.datetime).all()
     last_entry = weights[-1]
     heights= db.query(User).filter_by(username = user.username, height = User.height).first()
