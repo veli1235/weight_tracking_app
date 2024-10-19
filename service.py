@@ -81,4 +81,4 @@ def calculate_bmi_for_last_weight(*,username:str, db: Session):
     last_entry = weights[-1]
     heights= db.query(User).filter_by(username = user.username, height = User.height).first()
     height1 = heights.height
-    return  {"bmi":last_entry.weight/height1**2} 
+    return  {"bmi":round(last_entry.weight/height1**2,2)} 
