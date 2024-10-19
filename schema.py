@@ -15,3 +15,9 @@ class UserCreateWeight(BaseModel):
     datetime : date
     class Config:
         extra = "forbid"
+
+
+class WeightDatetime(BaseModel):
+    datetime : date
+    class Config:
+        extra = "forbid"
