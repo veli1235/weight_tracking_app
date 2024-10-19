@@ -14,11 +14,12 @@ def get_user_from_db(*,username:str, db: Session):
     user = db.query(User).filter(User.username==username).first()
     if not user:
         raise UserNotFound()
-    lst = []
+    weight = db.query(Weight).filter(Weight.username == username).first()
+    if not weight:
+        raise WeightNotFound()
     weights = db.query(Weight).filter_by(username=user.username,weight=Weight.weight).order_by(Weight.datetime).all()
-    lst.append(weights)
-    last_entry = lst[0][-1]
-    return {"username":user.username,"weight":last_entry.weight}
+    
+    return {"username":user.username,"weight":weights[-1].weight}
 
 
 def create_user_in_db(data: USerCreateSchema,db:Session):

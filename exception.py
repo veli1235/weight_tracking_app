@@ -17,3 +17,7 @@ class UserNotFound(DetailedHTTPException):
 class UserIsExists(DetailedHTTPException):
     STATUS_CODE=status.HTTP_400_BAD_REQUEST
     DETAIL = "User is exists"
+
+class WeightNotFound(DetailedHTTPException):
+    STATUS_CODE = status.HTTP_404_NOT_FOUND
+    DETAIL = "weight is not found"
